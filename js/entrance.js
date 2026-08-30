@@ -10,32 +10,51 @@ const entranceAudio =
 
 if (entranceScreen && entranceButton) {
 
-    entranceButton.addEventListener(
-        "click",
-        async () => {
+    const alreadyEntered =
+        sessionStorage.getItem("websiteEntered") === "true";
 
-            const enabled =
-                localStorage.getItem("bgmEnabled") !== "false";
 
-            if (enabled && entranceAudio) {
+    // Already entered during this tab session:
+    // skip the entrance completely.
+    if (alreadyEntered) {
 
-                try {
-                    await entranceAudio.play();
-                } catch {
-                    // Continue entering even if playback fails.
+        entranceScreen.remove();
+
+    } else {
+
+        entranceButton.addEventListener(
+            "click",
+            async () => {
+
+                // Remember that the entrance has been passed.
+                sessionStorage.setItem(
+                    "websiteEntered",
+                    "true"
+                );
+
+                const enabled =
+                    localStorage.getItem("bgmEnabled") !== "false";
+
+                if (enabled && entranceAudio) {
+
+                    try {
+                        await entranceAudio.play();
+                    } catch {
+                        // Continue entering even if playback fails.
+                    }
                 }
+
+                entranceScreen.classList.add(
+                    "entrance-hidden"
+                );
+
+                setTimeout(
+                    () => {
+                        entranceScreen.remove();
+                    },
+                    250
+                );
             }
-
-            entranceScreen.classList.add(
-                "entrance-hidden"
-            );
-
-            setTimeout(
-                () => {
-                    entranceScreen.remove();
-                },
-                250
-            );
-        }
-    );
+        );
+    }
 }
