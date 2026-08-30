@@ -22,24 +22,15 @@ if (audio && button) {
     }
 
     function updateButton() {
-        button.classList.toggle(
-            "muted",
-            !enabled
-        );
+        button.classList.toggle("muted", !enabled);
 
         if (icon) {
-            icon.alt =
-                enabled ? "BGM ON" : "BGM OFF";
+            icon.alt = enabled ? "BGM ON" : "BGM OFF";
         }
     }
 
     async function startAudio() {
-
-        if (!enabled) {
-            return;
-        }
-
-        if (entranceIsActive()) {
+        if (!enabled || entranceIsActive()) {
             return;
         }
 
@@ -50,36 +41,23 @@ if (audio && button) {
         }
     }
 
-    button.addEventListener(
-        "click",
-        async () => {
+    button.addEventListener("click", async () => {
 
-            enabled = !enabled;
+        enabled = !enabled;
 
-            localStorage.setItem(
-                "bgmEnabled",
-                String(enabled)
-            );
+        localStorage.setItem(
+            "bgmEnabled",
+            String(enabled)
+        );
 
-            if (enabled) {
-                await startAudio();
-            } else {
-                audio.pause();
-            }
-
-            updateButton();
+        if (enabled) {
+            await startAudio();
+        } else {
+            audio.pause();
         }
-    );
 
-    /*
-        HOME:
-        Entrance exists, so keep BGM completely silent
-        until the ENTER button is pressed.
-
-        ABOUT / PROJECTS:
-        No entrance exists, so keep the normal
-        automatic playback behavior.
-    */
+        updateButton();
+    });
 
     if (entranceIsActive()) {
 
@@ -93,26 +71,12 @@ if (audio && button) {
 
     updateButton();
 
-    /*
-        ABOUT / PROJECTS only.
-
-        If the browser blocks autoplay,
-        retry after the first user interaction.
-
-        HOME does not use this because entrance.js
-        starts the BGM from the ENTER click.
-    */
-
     if (!audioEntranceScreen) {
 
         document.addEventListener(
             "click",
             () => {
-
-                if (
-                    enabled &&
-                    audio.paused
-                ) {
+                if (enabled && audio.paused) {
                     startAudio();
                 }
             },
