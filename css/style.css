@@ -231,7 +231,7 @@ footer {
 }
 
 /* ========================================
-   BGM button
+   BGM BUTTON
    ======================================== */
 
 header {
@@ -250,28 +250,27 @@ header {
     cursor: pointer;
 }
 
-    .bgm-button img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
+.bgm-button img {
+    display: block;
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+}
 
-    .bgm-button.muted img {
-        opacity: 0.45;
-    }
+.bgm-button.muted img {
+    opacity: 0.45;
+}
 
-    /* Temporary slash until proper icon is added */
-
-    .bgm-button.muted::after {
-        content: "";
-        position: absolute;
-        left: 3px;
-        top: 18px;
-        width: 34px;
-        height: 2px;
-        background: #cc0000;
-        transform: rotate(-45deg);
-    }
+.bgm-button.muted::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 18px;
+    width: 34px;
+    height: 2px;
+    background: #cc0000;
+    transform: rotate(-45deg);
+}
 
 
 /* ========================================
@@ -297,25 +296,20 @@ main {
 }
 
 .home-side-image {
-    width: 100%;
+    width: 260px;
 }
 
-    .home-side-image img {
-        display: block;
-        width: 100%;
-        height: auto;
-        margin: 0;
-        border: 1px solid #555555;
-    }
-
-
-/* Hide side images when screen becomes too narrow */
-
-
+.home-side-image img {
+    display: block;
+    width: 260px;
+    height: auto;
+    margin: 0;
+    border: 1px solid #555555;
+}
 
 @media (max-width: 500px) {
-
     .home-side-image img {
         height: 120px;
+        object-fit: cover;
     }
 }
