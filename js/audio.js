@@ -1,41 +1,63 @@
 const audio = document.getElementById("bgm");
 const button = document.getElementById("audio-button");
+const icon = document.getElementById("audio-icon");
 
 if (audio && button) {
 
-    // Default volume
     audio.volume = 0.35;
 
-    // Check whether BGM was playing on previous page
-    const shouldPlay = sessionStorage.getItem("bgmPlaying") === "true";
+    let enabled =
+        localStorage.getItem("bgmEnabled") !== "false";
 
-    if (shouldPlay) {
-        audio.play()
-            .then(() => {
-                button.textContent = "STOP";
-            })
-            .catch(() => {
-                // Browser blocked autoplay.
-                button.textContent = "PLAY";
-                sessionStorage.setItem("bgmPlaying", "false");
-            });
+    function updateButton() {
+        button.classList.toggle("muted", !enabled);
+
+        if (icon) {
+            icon.alt = enabled ? "BGM ON" : "BGM OFF";
+        }
     }
 
-    button.addEventListener("click", () => {
+    async function startAudio() {
+        if (!enabled) return;
 
-        if (audio.paused) {
-
-            audio.play();
-
-            button.textContent = "STOP";
-            sessionStorage.setItem("bgmPlaying", "true");
-
-        } else {
-
-            audio.pause();
-
-            button.textContent = "PLAY";
-            sessionStorage.setItem("bgmPlaying", "false");
+        try {
+            await audio.play();
+        } catch {
+            // Browser blocked autoplay.
+            // First user interaction will retry.
         }
+    }
+
+    button.addEventListener("click", async () => {
+
+        enabled = !enabled;
+
+        localStorage.setItem(
+            "bgmEnabled",
+            String(enabled)
+        );
+
+        if (enabled) {
+            await startAudio();
+        } else {
+            audio.pause();
+        }
+
+        updateButton();
     });
+
+    // Try autoplay immediately.
+    startAudio();
+    updateButton();
+
+    // If autoplay was blocked, retry after first interaction.
+    document.addEventListener(
+        "click",
+        () => {
+            if (enabled && audio.paused) {
+                startAudio();
+            }
+        },
+        { once: true }
+    );
 }

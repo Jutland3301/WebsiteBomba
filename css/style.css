@@ -229,3 +229,93 @@ footer {
         max-width: 100%;
     }
 }
+
+/* ========================================
+   BGM button
+   ======================================== */
+
+header {
+    position: relative;
+}
+
+.bgm-button {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    padding: 2px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+    .bgm-button img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .bgm-button.muted img {
+        opacity: 0.45;
+    }
+
+    /* Temporary slash until proper icon is added */
+
+    .bgm-button.muted::after {
+        content: "";
+        position: absolute;
+        left: 3px;
+        top: 18px;
+        width: 34px;
+        height: 2px;
+        background: #cc0000;
+        transform: rotate(-45deg);
+    }
+
+
+/* ========================================
+   HOME OUTSIDE IMAGES
+   ======================================== */
+
+main {
+    position: relative;
+}
+
+.outside-image {
+    position: absolute;
+    top: 80px;
+    width: 260px;
+}
+
+.outside-image-left {
+    right: calc(100% + 35px);
+}
+
+.outside-image-right {
+    left: calc(100% + 35px);
+}
+
+.home-side-image {
+    width: 100%;
+}
+
+    .home-side-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 0;
+        border: 1px solid #555555;
+    }
+
+
+/* Hide side images when screen becomes too narrow */
+
+
+
+@media (max-width: 500px) {
+
+    .home-side-image img {
+        height: 120px;
+    }
+}

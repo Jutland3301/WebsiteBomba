@@ -76,6 +76,16 @@ def page_start(title: str, active: str) -> str:
     <p class="site-subtitle">
         notes / projects / miscellaneous things
     </p>
+<button id="audio-button"
+        class="bgm-button"
+        type="button"
+        title="BGM ON / OFF">
+
+    <img id="audio-icon"
+         src="images/speaker.png"
+         alt="BGM ON">
+
+</button>
 </header>
 
 <nav>
@@ -88,20 +98,10 @@ def page_start(title: str, active: str) -> str:
 
 def page_end(audio_name: str) -> str:
     return f"""
-    <div class="audio-control">
-
-        BGM:
-
-        <button id="audio-button">
-            PLAY
-        </button>
-
-        <audio id="bgm" loop>
-            <source src="audio/{audio_name}"
-                    type="audio/mpeg">
-        </audio>
-
-    </div>
+    <audio id="bgm" loop autoplay>
+    <source src="audio/{audio_name}"
+            type="audio/mpeg">
+    </audio>
 
 </main>
 
@@ -115,22 +115,52 @@ def page_end(audio_name: str) -> str:
 </html>
 """
 
-
 def generate_home() -> None:
 
     data = load_json(CONTENT / "home.json")
 
-    image = ""
+    left_image = ""
 
-    if data.get("image"):
-        image = (
-            f'<img src="{html.escape(data["image"])}" '
-            f'alt="home image">'
-        )
+    if data.get("left_image"):
+        left_image = f"""
+        <div class="home-side-image">
+            <img
+                class="blink-image"
+                src="{html.escape(data["left_image"])}"
+                alt="left image"
+                data-blink="{str(data.get("blink_enabled", False)).lower()}"
+                data-visible="{data.get("blink_visible_seconds", 2)}"
+                data-hidden="{data.get("blink_hidden_seconds", 1)}">
+        </div>
+"""
 
+    right_image = ""
+
+    if data.get("right_image"):
+        right_image = f"""
+        <div class="home-side-image">
+            <img
+                class="blink-image"
+                src="{html.escape(data["right_image"])}"
+                alt="right image"
+                data-blink="{str(data.get("blink_enabled", False)).lower()}"
+                data-visible="{data.get("blink_visible_seconds", 2)}"
+                data-hidden="{data.get("blink_hidden_seconds", 1)}">
+        </div>
+"""
+
+    # IMPORTANT: output must be created before output +=
     output = page_start("Home", "HOME")
 
     output += f"""
+    <div class="outside-image outside-image-left">
+        {left_image}
+    </div>
+
+    <div class="outside-image outside-image-right">
+        {right_image}
+    </div>
+
     <h2 class="page-heading">HOME</h2>
 
     <article class="entry">
@@ -142,8 +172,6 @@ def generate_home() -> None:
         <h3 class="entry-title">
             {html.escape(data.get("title", ""))}
         </h3>
-
-        {image}
 
         {paragraphs(data.get("body", ""))}
 
@@ -159,11 +187,15 @@ def generate_home() -> None:
 
     output += page_end("home.mp3")
 
+    output = output.replace(
+        "</body>",
+        '<script src="js/blink.js"></script>\n</body>'
+    )
+
     (ROOT / "index.html").write_text(
         output,
         encoding="utf-8"
     )
-
 
 def generate_about() -> None:
 

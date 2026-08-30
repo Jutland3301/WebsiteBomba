@@ -19,20 +19,25 @@
     <p class="site-subtitle">
         notes / projects / miscellaneous things
     </p>
+<button id="audio-button"
+        class="bgm-button"
+        type="button"
+        title="BGM ON / OFF">
+
+    <img id="audio-icon"
+         src="images/speaker.png"
+         alt="BGM ON">
+
+</button>
 </header>
 
-
 <nav>
-    <a href="index.html">HOME</a>
-    <a href="about.html">ABOUT</a>
-    <a href="projects.html">PROJECTS</a>
+    <a href="index.html">HOME</a> <a href="about.html">ABOUT</a> <a href="projects.html">PROJECTS</a>
 </nav>
-
 
 <main>
 
     <h2 class="page-heading">ABOUT</h2>
-
 
     <article class="entry">
 
@@ -40,86 +45,43 @@
             About me
         </h3>
 
-        <!--
-        Optional image:
+        
 
-        <img src="images/about.jpg"
-             alt="about">
-        -->
-
-        <p>
-            Write something about yourself here.
-        </p>
-
-        <p>
-            This page can contain a short introduction,
-            interests, education, things you are working on,
-            or anything else you want to leave here.
-        </p>
-
+        <p>Write something about yourself here.</p>
 
         <hr>
-
 
         <h3 class="entry-title">
             Interests
         </h3>
 
         <p>
-            electronics / engineering / programming /
-            music / games / other things
+            electronics / engineering / programming / music / games / other things
         </p>
 
-
         <hr>
-
 
         <h3 class="entry-title">
             Contact
         </h3>
 
-        <p>
-            GitHub:
-            <a href="#">
-                github
-            </a>
-        </p>
-
-        <p>
-            Email:
-            <a href="#">
-                email
-            </a>
-        </p>
+        
+        
 
     </article>
 
-
-    <div class="audio-control">
-
-        BGM:
-
-        <button id="audio-button">
-            PLAY
-        </button>
-
-        <audio id="bgm" loop>
-            <source src="audio/about.mp3"
-                    type="audio/mpeg">
-        </audio>
-
-    </div>
+    <audio id="bgm" loop autoplay>
+    <source src="audio/about.mp3"
+            type="audio/mpeg">
+    </audio>
 
 </main>
-
 
 <footer>
     personal website
 </footer>
 
-
 <script src="js/audio.js"></script>
 
 </body>
-
 </html>
