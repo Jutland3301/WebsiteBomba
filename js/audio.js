@@ -1,6 +1,7 @@
 const audio = document.getElementById("bgm");
 const button = document.getElementById("audio-button");
 const icon = document.getElementById("audio-icon");
+const entranceScreen = document.getElementById("entrance-screen");
 
 if (audio && button) {
 
@@ -8,6 +9,13 @@ if (audio && button) {
 
     let enabled =
         localStorage.getItem("bgmEnabled") !== "false";
+
+    function entranceIsActive() {
+        return Boolean(
+            entranceScreen &&
+            !entranceScreen.classList.contains("entrance-hidden")
+        );
+    }
 
     function updateButton() {
         button.classList.toggle("muted", !enabled);
@@ -18,13 +26,12 @@ if (audio && button) {
     }
 
     async function startAudio() {
-        if (!enabled) return;
+        if (!enabled || entranceIsActive()) return;
 
         try {
             await audio.play();
         } catch {
             // Browser blocked autoplay.
-            // First user interaction will retry.
         }
     }
 
@@ -46,18 +53,29 @@ if (audio && button) {
         updateButton();
     });
 
-    // Try autoplay immediately.
-    startAudio();
+    // HOME entrance exists:
+    // absolutely no sound before ENTER.
+    if (entranceIsActive()) {
+        audio.pause();
+        audio.currentTime = 0;
+    } else {
+        // ABOUT / PROJECTS keep existing behavior.
+        startAudio();
+    }
+
     updateButton();
 
-    // If autoplay was blocked, retry after first interaction.
-    document.addEventListener(
-        "click",
-        () => {
-            if (enabled && audio.paused) {
-                startAudio();
-            }
-        },
-        { once: true }
-    );
+    // ABOUT / PROJECTS only:
+    // retry after interaction if autoplay was blocked.
+    if (!entranceScreen) {
+        document.addEventListener(
+            "click",
+            () => {
+                if (enabled && audio.paused) {
+                    startAudio();
+                }
+            },
+            { once: true }
+        );
+    }
 }

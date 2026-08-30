@@ -98,7 +98,7 @@ def page_start(title: str, active: str) -> str:
 
 def page_end(audio_name: str) -> str:
     return f"""
-    <audio id="bgm" loop autoplay>
+    <audio id="bgm" loop>
     <source src="audio/{audio_name}"
             type="audio/mpeg">
     </audio>
