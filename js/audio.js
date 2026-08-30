@@ -13,13 +13,21 @@ if (audio && button) {
         localStorage.getItem("bgmEnabled") !== "false";
 
     function entranceIsActive() {
-        return Boolean(
-            audioEntranceScreen &&
-            !audioEntranceScreen.classList.contains(
-                "entrance-hidden"
-            )
-        );
+
+    const alreadyEntered =
+        sessionStorage.getItem("websiteEntered") === "true";
+
+    if (alreadyEntered) {
+        return false;
     }
+
+    return Boolean(
+        audioEntranceScreen &&
+        !audioEntranceScreen.classList.contains(
+            "entrance-hidden"
+        )
+    );
+}
 
     function updateButton() {
         button.classList.toggle("muted", !enabled);

@@ -71,16 +71,24 @@ def choose_image(parent) -> str | None:
     if not source:
         return None
 
-    source_path = Path(source)
+    source_path = Path(source).resolve()
 
     IMAGES.mkdir(
         parents=True,
         exist_ok=True
     )
 
-    destination = IMAGES / source_path.name
+    images_dir = IMAGES.resolve()
 
-    # Avoid overwriting a different existing file.
+    # Already inside WebsiteBomba/images:
+    # use the existing file directly.
+    if source_path.parent == images_dir:
+        return f"images/{source_path.name}"
+
+    destination = images_dir / source_path.name
+
+    # External image with conflicting filename:
+    # create a unique filename.
     if destination.exists():
 
         counter = 1
@@ -88,7 +96,7 @@ def choose_image(parent) -> str | None:
         while True:
 
             candidate = (
-                IMAGES
+                images_dir
                 / (
                     f"{source_path.stem}_{counter}"
                     f"{source_path.suffix}"
@@ -101,18 +109,12 @@ def choose_image(parent) -> str | None:
 
             counter += 1
 
-    try:
-        shutil.copy2(
-            source_path,
-            destination
-        )
-
-    except shutil.SameFileError:
-        pass
+    shutil.copy2(
+        source_path,
+        destination
+    )
 
     return f"images/{destination.name}"
-
-
 # ============================================================
 # PREVIEW SERVER
 # ============================================================
