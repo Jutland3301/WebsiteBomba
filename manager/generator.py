@@ -65,7 +65,7 @@ def page_start(title: str, active: str) -> str:
 
     <title>{html.escape(title)}</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 
 <body>
