@@ -8,7 +8,19 @@
 
     <title>Home</title>
 
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <script>
+        if (sessionStorage.getItem("websiteEntered") === "true") {
+            document.documentElement.classList.add("already-entered");
+        }
+    </script>
+
+    <style>
+        .already-entered .entrance-screen {
+            display: none !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 
 <body>
@@ -67,8 +79,8 @@
                 src="images/home-left.jpg"
                 alt="left image"
                 data-blink="true"
-                data-visible="2"
-                data-hidden="1">
+                data-visible="8.0"
+                data-hidden="1.0">
         </div>
 
     </div>
@@ -81,8 +93,8 @@
                 src="images/home-right.jpg"
                 alt="right image"
                 data-blink="true"
-                data-visible="2"
-                data-hidden="1">
+                data-visible="8.0"
+                data-hidden="1.0">
         </div>
 
     </div>
@@ -99,8 +111,7 @@
             BOMBA2
         </h3>
 
-        <p>This is my personal website.</p>
-<p>I use this place to keep notes, projects, experiments, unfinished things, and whatever else I feel like putting on the internet.</p>
+        <p>I do what i want :O</p>
 
     </article>
 

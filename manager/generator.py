@@ -65,7 +65,19 @@ def page_start(title: str, active: str) -> str:
 
     <title>{html.escape(title)}</title>
 
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <script>
+        if (sessionStorage.getItem("websiteEntered") === "true") {{
+            document.documentElement.classList.add("already-entered");
+        }}
+    </script>
+
+    <style>
+        .already-entered .entrance-screen {{
+            display: none !important;
+        }}
+    </style>
+
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 
 <body>
@@ -149,9 +161,8 @@ def generate_home() -> None:
         </div>
 """
 
-    # IMPORTANT: output must be created before output +=
     output = page_start("Home", "HOME")
-    
+
     output += """
     <div id="entrance-screen" class="entrance-screen">
 
@@ -222,6 +233,7 @@ def generate_home() -> None:
         output,
         encoding="utf-8"
     )
+
 
 def generate_about() -> None:
 

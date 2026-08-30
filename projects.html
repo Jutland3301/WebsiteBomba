@@ -8,7 +8,19 @@
 
     <title>Projects</title>
 
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <script>
+        if (sessionStorage.getItem("websiteEntered") === "true") {
+            document.documentElement.classList.add("already-entered");
+        }
+    </script>
+
+    <style>
+        .already-entered .entrance-screen {
+            display: none !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 
 <body>

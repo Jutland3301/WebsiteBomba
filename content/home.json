@@ -1,13 +1,11 @@
 {
   "title": "BOMBA2",
   "date": "2026.08.30",
-  "body": "This is my personal website.\n\nI use this place to keep notes, projects, experiments, unfinished things, and whatever else I feel like putting on the internet.",
+  "body": "I do what i want :O ",
   "last_updated": "2026.08.30",
-
   "left_image": "images/home-left.jpg",
   "right_image": "images/home-right.jpg",
-
   "blink_enabled": true,
-  "blink_visible_seconds": 2,
-  "blink_hidden_seconds": 1
+  "blink_visible_seconds": 8.0,
+  "blink_hidden_seconds": 1.0
 }
