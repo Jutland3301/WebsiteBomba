@@ -13,10 +13,11 @@ if (entranceScreen && entranceButton) {
     const alreadyEntered =
         sessionStorage.getItem("websiteEntered") === "true";
 
-
-    // Already entered during this tab session:
-    // skip the entrance completely.
     if (alreadyEntered) {
+
+        document.documentElement.classList.remove(
+            "show-entrance"
+        );
 
         entranceScreen.remove();
 
@@ -26,10 +27,13 @@ if (entranceScreen && entranceButton) {
             "click",
             async () => {
 
-                // Remember that the entrance has been passed.
                 sessionStorage.setItem(
                     "websiteEntered",
                     "true"
+                );
+
+                document.documentElement.classList.remove(
+                    "show-entrance"
                 );
 
                 const enabled =
