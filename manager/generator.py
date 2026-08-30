@@ -151,6 +151,30 @@ def generate_home() -> None:
 
     # IMPORTANT: output must be created before output +=
     output = page_start("Home", "HOME")
+    
+    output += """
+    <div id="entrance-screen" class="entrance-screen">
+
+        <div class="entrance-box">
+
+            <div class="entrance-title">
+                WEBSITE BOMBA
+            </div>
+
+            <button id="entrance-button"
+                    class="entrance-button"
+                    type="button">
+                ENTER
+            </button>
+
+            <div class="entrance-note">
+                sound will play
+            </div>
+
+        </div>
+
+    </div>
+"""
 
     output += f"""
     <div class="outside-image outside-image-left">
@@ -189,7 +213,9 @@ def generate_home() -> None:
 
     output = output.replace(
         "</body>",
-        '<script src="js/blink.js"></script>\n</body>'
+        '<script src="js/blink.js"></script>\n'
+        '<script src="js/entrance.js"></script>\n'
+        '</body>'
     )
 
     (ROOT / "index.html").write_text(

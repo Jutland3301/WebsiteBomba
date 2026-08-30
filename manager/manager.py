@@ -379,7 +379,7 @@ class SiteManager(tk.Tk):
         )
 
         frame.rowconfigure(
-            4,
+            8,
             weight=1
         )
 
@@ -403,26 +403,258 @@ class SiteManager(tk.Tk):
             )
         )
 
-        self.home_image = (
-            self.image_row(
-                frame,
-                2
-            )
-        )
-
         self.home_updated = (
             self.labeled_entry(
                 frame,
                 "Last updated",
-                3
+                2
             )
         )
+
+        # ----------------------------------------------------
+        # SIDE IMAGES
+        # ----------------------------------------------------
+
+        ttk.Label(
+            frame,
+            text="Left image"
+        ).grid(
+            row=3,
+            column=0,
+            sticky="w",
+            padx=10,
+            pady=6
+        )
+
+        left_holder = ttk.Frame(frame)
+
+        left_holder.grid(
+            row=3,
+            column=1,
+            sticky="ew",
+            padx=10,
+            pady=6
+        )
+
+        left_holder.columnconfigure(
+            0,
+            weight=1
+        )
+
+        self.home_left_image = ttk.Entry(
+            left_holder
+        )
+
+        self.home_left_image.grid(
+            row=0,
+            column=0,
+            sticky="ew"
+        )
+
+        def browse_left_image():
+
+            path = choose_image(self)
+
+            if path:
+
+                self.home_left_image.delete(
+                    0,
+                    "end"
+                )
+
+                self.home_left_image.insert(
+                    0,
+                    path
+                )
+
+        ttk.Button(
+            left_holder,
+            text="BROWSE...",
+            command=browse_left_image
+        ).grid(
+            row=0,
+            column=1,
+            padx=(5, 0)
+        )
+
+        ttk.Label(
+            frame,
+            text="Right image"
+        ).grid(
+            row=4,
+            column=0,
+            sticky="w",
+            padx=10,
+            pady=6
+        )
+
+        right_holder = ttk.Frame(frame)
+
+        right_holder.grid(
+            row=4,
+            column=1,
+            sticky="ew",
+            padx=10,
+            pady=6
+        )
+
+        right_holder.columnconfigure(
+            0,
+            weight=1
+        )
+
+        self.home_right_image = ttk.Entry(
+            right_holder
+        )
+
+        self.home_right_image.grid(
+            row=0,
+            column=0,
+            sticky="ew"
+        )
+
+        def browse_right_image():
+
+            path = choose_image(self)
+
+            if path:
+
+                self.home_right_image.delete(
+                    0,
+                    "end"
+                )
+
+                self.home_right_image.insert(
+                    0,
+                    path
+                )
+
+        ttk.Button(
+            right_holder,
+            text="BROWSE...",
+            command=browse_right_image
+        ).grid(
+            row=0,
+            column=1,
+            padx=(5, 0)
+        )
+
+        # ----------------------------------------------------
+        # BLINK SETTINGS
+        # ----------------------------------------------------
+
+        ttk.Label(
+            frame,
+            text="Blink enabled"
+        ).grid(
+            row=5,
+            column=0,
+            sticky="w",
+            padx=10,
+            pady=6
+        )
+
+        self.home_blink_enabled = tk.BooleanVar(
+            value=data.get(
+                "blink_enabled",
+                False
+            )
+        )
+
+        ttk.Checkbutton(
+            frame,
+            variable=self.home_blink_enabled
+        ).grid(
+            row=5,
+            column=1,
+            sticky="w",
+            padx=10,
+            pady=6
+        )
+
+        ttk.Label(
+            frame,
+            text="Visible time"
+        ).grid(
+            row=6,
+            column=0,
+            sticky="w",
+            padx=10,
+            pady=6
+        )
+
+        visible_holder = ttk.Frame(frame)
+
+        visible_holder.grid(
+            row=6,
+            column=1,
+            sticky="w",
+            padx=10,
+            pady=6
+        )
+
+        self.home_blink_visible = ttk.Entry(
+            visible_holder,
+            width=10
+        )
+
+        self.home_blink_visible.pack(
+            side="left"
+        )
+
+        ttk.Label(
+            visible_holder,
+            text=" sec"
+        ).pack(
+            side="left"
+        )
+
+        ttk.Label(
+            frame,
+            text="Hidden time"
+        ).grid(
+            row=7,
+            column=0,
+            sticky="w",
+            padx=10,
+            pady=6
+        )
+
+        hidden_holder = ttk.Frame(frame)
+
+        hidden_holder.grid(
+            row=7,
+            column=1,
+            sticky="w",
+            padx=10,
+            pady=6
+        )
+
+        self.home_blink_hidden = ttk.Entry(
+            hidden_holder,
+            width=10
+        )
+
+        self.home_blink_hidden.pack(
+            side="left"
+        )
+
+        ttk.Label(
+            hidden_holder,
+            text=" sec"
+        ).pack(
+            side="left"
+        )
+
+        # ----------------------------------------------------
+        # BODY
+        # ----------------------------------------------------
 
         ttk.Label(
             frame,
             text="Body"
         ).grid(
-            row=4,
+            row=8,
             column=0,
             sticky="nw",
             padx=10,
@@ -431,17 +663,21 @@ class SiteManager(tk.Tk):
 
         self.home_body = tk.Text(
             frame,
-            height=20,
+            height=16,
             wrap="word"
         )
 
         self.home_body.grid(
-            row=4,
+            row=8,
             column=1,
             sticky="nsew",
             padx=10,
             pady=6
         )
+
+        # ----------------------------------------------------
+        # LOAD DATA
+        # ----------------------------------------------------
 
         self.home_title.insert(
             0,
@@ -453,16 +689,47 @@ class SiteManager(tk.Tk):
             data.get("date", "")
         )
 
-        self.home_image.insert(
-            0,
-            data.get("image", "")
-        )
-
         self.home_updated.insert(
             0,
             data.get(
                 "last_updated",
                 ""
+            )
+        )
+
+        self.home_left_image.insert(
+            0,
+            data.get(
+                "left_image",
+                ""
+            )
+        )
+
+        self.home_right_image.insert(
+            0,
+            data.get(
+                "right_image",
+                ""
+            )
+        )
+
+        self.home_blink_visible.insert(
+            0,
+            str(
+                data.get(
+                    "blink_visible_seconds",
+                    2
+                )
+            )
+        )
+
+        self.home_blink_hidden.insert(
+            0,
+            str(
+                data.get(
+                    "blink_hidden_seconds",
+                    1
+                )
             )
         )
 
@@ -476,13 +743,174 @@ class SiteManager(tk.Tk):
             text="SAVE HOME",
             command=self.save_home
         ).grid(
-            row=5,
+            row=9,
             column=1,
             sticky="e",
             padx=10,
             pady=10
         )
 
+    def save_home(
+        self,
+        show_message=True
+    ):
+
+        try:
+            visible_seconds = float(
+                self.home_blink_visible.get()
+            )
+
+            hidden_seconds = float(
+                self.home_blink_hidden.get()
+            )
+
+        except ValueError:
+
+            messagebox.showerror(
+                "Invalid blink time",
+                "Visible time and hidden time must be numbers."
+            )
+
+            return
+
+        if (
+            visible_seconds <= 0
+            or hidden_seconds <= 0
+        ):
+
+            messagebox.showerror(
+                "Invalid blink time",
+                "Blink times must be greater than 0."
+            )
+
+            return
+
+        data = {
+            "title":
+                self.home_title.get(),
+
+            "date":
+                self.home_date.get(),
+
+            "body":
+                self.home_body.get(
+                    "1.0",
+                    "end-1c"
+                ),
+
+            "last_updated":
+                self.home_updated.get(),
+
+            "left_image":
+                self.home_left_image.get(),
+
+            "right_image":
+                self.home_right_image.get(),
+
+            "blink_enabled":
+                self.home_blink_enabled.get(),
+
+            "blink_visible_seconds":
+                visible_seconds,
+
+            "blink_hidden_seconds":
+                hidden_seconds
+        }
+
+        save_json(
+            CONTENT / "home.json",
+            data
+        )
+
+        generator.generate_home()
+
+        if show_message:
+
+            messagebox.showinfo(
+                "Saved",
+                "HOME saved."
+            )
+    def save_home(
+        self,
+        show_message=True
+    ):
+
+        try:
+            visible_seconds = float(
+                self.home_blink_visible.get()
+            )
+
+            hidden_seconds = float(
+                self.home_blink_hidden.get()
+            )
+
+        except ValueError:
+
+            messagebox.showerror(
+                "Invalid blink time",
+                "Visible time and hidden time must be numbers."
+            )
+
+            return
+
+        if (
+            visible_seconds <= 0
+            or hidden_seconds <= 0
+        ):
+
+            messagebox.showerror(
+                "Invalid blink time",
+                "Blink times must be greater than 0."
+            )
+
+            return
+
+        data = {
+            "title":
+                self.home_title.get(),
+
+            "date":
+                self.home_date.get(),
+
+            "body":
+                self.home_body.get(
+                    "1.0",
+                    "end-1c"
+                ),
+
+            "last_updated":
+                self.home_updated.get(),
+
+            "left_image":
+                self.home_left_image.get(),
+
+            "right_image":
+                self.home_right_image.get(),
+
+            "blink_enabled":
+                self.home_blink_enabled.get(),
+
+            "blink_visible_seconds":
+                visible_seconds,
+
+            "blink_hidden_seconds":
+                hidden_seconds
+        }
+
+        save_json(
+            CONTENT / "home.json",
+            data
+        )
+
+        generator.generate_home()
+
+        if show_message:
+
+            messagebox.showinfo(
+                "Saved",
+                "HOME saved."
+            )
+            
     def save_home(
         self,
         show_message=True
