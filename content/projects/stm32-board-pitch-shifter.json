@@ -1,0 +1,10 @@
+{
+  "slug": "stm32-board-pitch-shifter",
+  "title": "STM32 board Pitch shifter",
+  "date": "2026/08/31",
+  "status": "Ongoing",
+  "description": "[Pending]",
+  "image": "images/speaker.png",
+  "github": "[Pending]",
+  "body": "Using Board STM32L4S5's MIC function, we aim to record a max 60s audio file from the sounds collected by the STM32 board. \n\nOptions in python manager file controls the timing of recording, file saving location, and how much the audio pitch shift. \nCurrent option compose of a range of -12~+12(essentially 2 octaves in total).\n\nMain Code for recording and pitch modulation is organized in main.c written by STM32CUBEIDE.\n\nThe project is ongoing, currently resolving issues with low writing speed. "
+}

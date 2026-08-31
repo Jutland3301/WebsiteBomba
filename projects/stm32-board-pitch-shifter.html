@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>STM32 board Pitch shifter</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+</head>
+
+<body>
+
+<header>
+    <h1 class="site-title">personal website</h1>
+
+    <p class="site-subtitle">
+        notes / projects / miscellaneous things
+    </p>
+</header>
+
+<nav>
+    <a href="../index.html">HOME</a>
+    <a href="../about.html">ABOUT</a>
+    <a href="../projects.html">PROJECTS</a>
+</nav>
+
+<main>
+
+    <h2 class="page-heading">PROJECT</h2>
+
+    <article class="entry">
+
+        <div class="entry-date">
+            2026/08/31
+        </div>
+
+        <h3 class="entry-title">
+            STM32 board Pitch shifter
+        </h3>
+
+        <p class="small">
+            status: Ongoing
+        </p>
+
+        <img src="../images/speaker.png" alt="STM32 board Pitch shifter">
+
+        <p>Using Board STM32L4S5&#x27;s MIC function, we aim to record a max 60s audio file from the sounds collected by the STM32 board.</p>
+<p>Options in python manager file controls the timing of recording, file saving location, and how much the audio pitch shift. <br>Current option compose of a range of -12~+12(essentially 2 octaves in total).</p>
+<p>Main Code for recording and pitch modulation is organized in main.c written by STM32CUBEIDE.</p>
+<p>The project is ongoing, currently resolving issues with low writing speed.</p>
+
+        
+        <p>
+            <a href="[Pending]">
+                GitHub repository
+            </a>
+        </p>
+
+
+        <hr>
+
+        <p>
+            <a href="../projects.html">
+                &lt;&lt; back to projects
+            </a>
+        </p>
+
+    </article>
+
+    <div class="audio-control">
+
+        BGM:
+
+        <button id="audio-button">
+            PLAY
+        </button>
+
+        <audio id="bgm" loop>
+            <source src="../audio/projects.mp3"
+                    type="audio/mpeg">
+        </audio>
+
+    </div>
+
+</main>
+
+<footer>
+    personal website
+</footer>
+
+<script src="../js/audio.js"></script>
+
+</body>
+</html>
