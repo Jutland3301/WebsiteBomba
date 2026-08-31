@@ -1,11 +1,11 @@
 {
-  "title": "BOMBA2",
+  "title": "Hello!",
   "date": "2026.08.30",
-  "body": "I do what i want :O ",
+  "body": "SON",
   "last_updated": "2026.08.30",
   "left_image": "images/home-left.jpg",
   "right_image": "images/home-right.jpg",
   "blink_enabled": true,
-  "blink_visible_seconds": 8.0,
-  "blink_hidden_seconds": 1.0
+  "blink_visible_seconds": 12.0,
+  "blink_hidden_seconds": 0.5
 }
